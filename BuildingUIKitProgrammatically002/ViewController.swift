@@ -30,7 +30,7 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
         listChannelsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         listChannelsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
 
-        listChannelsTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        listChannelsTableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         listChannelsTableView.dataSource = self
         listChannelsTableView.delegate = self
@@ -123,8 +123,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath as IndexPath)
-        cell.textLabel!.text = "\(myArray[indexPath.row].name_ru)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
+        //cell.textLabel!.text = "\(myArray[indexPath.row].name_ru)"
+        cell.setValueMyCell(nameviewImage: "ErrorChannel.jpeg", textTitleLabel: "1", textDescLabel: "2")
         return cell
     }
     
@@ -133,4 +134,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         print("Value: \(myArray[indexPath.row])")
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }
