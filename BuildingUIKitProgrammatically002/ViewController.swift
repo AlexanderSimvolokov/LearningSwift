@@ -69,14 +69,16 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
     struct Channel : Decodable {
         var id: Int
         var name_ru: String
+        var current: Current
+        var image: String
+    }
+    struct Current : Decodable{
+        var desc: String
     }
     
     @objc func targetMyButton(){
         print("111")
         let fileJson = Bundle.main.path(forResource: "channels", ofType: "json") ?? "nil"
-        //let model = try JSONDecoder().decode(Model.self, from: data)
-        //print(fileJson ?? "nil")
-//        do {
         
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: fileJson), options: .alwaysMapped) else {
             print("error data")
@@ -89,25 +91,10 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
         }
             print(type(of: jsonData))
             print(type(of: jsonData.channels))
-        
-    
-        
             print(jsonData.channels.count)
             
-//            myArray.removeAll()
-            
-//            for itemJsonData in jsonData.channels {
-//                myArray.append(itemJsonData.name_ru)
-//            }
-//      
         myArray = jsonData.channels
         listChannelsTableView.reloadData()
-            
-            //print(jsonData.channels)
-            //return jsonData.person
-//        } catch {
-//            print("error:\(error)")
-//        }
             
     }
     
@@ -123,9 +110,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
         //cell.textLabel!.text = "\(myArray[indexPath.row].name_ru)"
-        cell.setValueMyCell(nameviewImage: "ErrorChannel.jpeg", textTitleLabel: "1", textDescLabel: "2")
+        cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image, textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].current.desc)
         return cell
     }
     
@@ -135,6 +123,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
+        
     }
 }

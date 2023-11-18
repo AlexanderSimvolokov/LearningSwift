@@ -60,8 +60,11 @@
 		1525D64E2AE7245300CBCB94 /* BuildingUIKitProgrammatically002 */ = {
 			isa = PBXGroup;
 			children = (
-				1525D64F2AE7245300CBCB94 /* AppDelegate.swift */,
+				15DC10D42B09807800D00BDD /* Models */,
+				15DC10D52B0980B600D00BDD /* Views */,
+				15DC10D62B0980E000D00BDD /* Controllers */,
 				1525D6512AE7245300CBCB94 /* SceneDelegate.swift */,
+				1525D64F2AE7245300CBCB94 /* AppDelegate.swift */,
 				1525D6532AE7245300CBCB94 /* ViewController.swift */,
 				154FD8CA2B0035AE001B8EA3 /* TableViewCell.swift */,
 				1525D6582AE7245400CBCB94 /* Assets.xcassets */,
@@ -71,6 +74,27 @@
 				159ED02F2B004F200098C8C9 /* ErrorChannel.jpeg */,
 			);
 			path = BuildingUIKitProgrammatically002;
+			sourceTree = "<group>";
+		};
+		15DC10D42B09807800D00BDD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		15DC10D52B0980B600D00BDD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		15DC10D62B0980E000D00BDD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
