@@ -65,23 +65,62 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
 
     @objc func targetMyButton(){
         print("111")
-        let fileJson = Bundle.main.path(forResource: "channels", ofType: "json") ?? "nil"
+//        let fileJson = Bundle.main.path(forResource: "channels", ofType: "json") ?? "nil"
         
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: fileJson), options: .alwaysMapped) else {
-            print("error data")
-            return
-        }
-        let decoder = JSONDecoder()
-        guard let jsonData = try? decoder.decode(ResponseData.self, from: data) else {
-            print("error jsonData")
-            return
-        }
-            print(type(of: jsonData))
-            print(type(of: jsonData.channels))
-            print(jsonData.channels.count)
+        let url = URL(string: "https://www.motodolphin.com/channels.json")!
+        
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                //                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data,
+                error == nil
+            else {
+                print("error data")
+                return
+            }
+            let decoder = JSONDecoder()
             
-        myArray = jsonData.channels
-        listChannelsTableView.reloadData()
+            do {
+                let jsonData = try decoder.decode(ResponseData.self, from: data)
+                
+                DispatchQueue.main.async() { [weak self] in
+                    self?.myArray = jsonData.channels
+                    self?.listChannelsTableView.reloadData()
+                }
+              
+            }catch{
+                print(error)
+                return
+            }
+//            guard let jsonData = try? decoder.decode(ResponseData.self, from: data) else {
+//                print("error jsonData")
+//                return
+//            }
+//            print(type(of: jsonData))
+//            print(type(of: jsonData.channels))
+//            print(jsonData.channels.count)
+            
+//            myArray = jsonData.channels
+//            listChannelsTableView.reloadData()
+        }.resume()
+        
+//        guard let data = try? Data(contentsOf: URL(fileURLWithPath: fileJson), options: .alwaysMapped) else {
+//            print("error data")
+//            return
+//        }
+//        let decoder = JSONDecoder()
+//        guard let jsonData = try? decoder.decode(ResponseData.self, from: data) else {
+//            print("error jsonData")
+//            return
+//        }
+//            print(type(of: jsonData))
+//            print(type(of: jsonData.channels))
+//            print(jsonData.channels.count)
+//            
+//        myArray = jsonData.channels
+//        listChannelsTableView.reloadData()
             
     }
     
@@ -100,7 +139,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
         //cell.textLabel!.text = "\(myArray[indexPath.row].name_ru)"
-        cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image, textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].current.desc)
+        cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image ?? "", textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].current?.desc ?? "")
         return cell
     }
     

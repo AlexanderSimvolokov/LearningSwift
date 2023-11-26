@@ -13,8 +13,8 @@ struct ResponseData: Decodable {
 struct Channel : Decodable {
     var id: Int
     var name_ru: String
-    var current: Current
-    var image: String
+    var current: Current?
+    var image: String?
 }
 struct Current : Decodable{
     var desc: String
