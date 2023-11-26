@@ -63,19 +63,6 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
         //rightUIButton.contentMode = .right
     }
 
-    struct ResponseData: Decodable {
-        var channels: [Channel]
-    }
-    struct Channel : Decodable {
-        var id: Int
-        var name_ru: String
-        var current: Current
-        var image: String
-    }
-    struct Current : Decodable{
-        var desc: String
-    }
-    
     @objc func targetMyButton(){
         print("111")
         let fileJson = Bundle.main.path(forResource: "channels", ofType: "json") ?? "nil"
