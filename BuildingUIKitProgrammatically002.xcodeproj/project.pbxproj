@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150169FF2B1AAD5E00248601 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150169FE2B1AAD5E00248601 /* ItemView.swift */; };
 		1525D6502AE7245300CBCB94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525D64F2AE7245300CBCB94 /* AppDelegate.swift */; };
 		1525D6522AE7245300CBCB94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525D6512AE7245300CBCB94 /* SceneDelegate.swift */; };
 		1525D6542AE7245300CBCB94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525D6532AE7245300CBCB94 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		150169FE2B1AAD5E00248601 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		1525D64C2AE7245300CBCB94 /* BuildingUIKitProgrammatically002.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildingUIKitProgrammatically002.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1525D64F2AE7245300CBCB94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1525D6512AE7245300CBCB94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				1525D6512AE7245300CBCB94 /* SceneDelegate.swift */,
 				1536CD2F2B13259800E8236F /* Models */,
 				1525D64F2AE7245300CBCB94 /* AppDelegate.swift */,
+				150169FE2B1AAD5E00248601 /* ItemView.swift */,
 				1525D6582AE7245400CBCB94 /* Assets.xcassets */,
 				1525D65A2AE7245400CBCB94 /* LaunchScreen.storyboard */,
 				1525D65D2AE7245400CBCB94 /* Info.plist */,
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1525D6542AE7245300CBCB94 /* ViewController.swift in Sources */,
+				150169FF2B1AAD5E00248601 /* ItemView.swift in Sources */,
 				1536CD312B13260700E8236F /* Channel.swift in Sources */,
 				154FD8CB2B0035AE001B8EA3 /* TableViewCell.swift in Sources */,
 				1525D6502AE7245300CBCB94 /* AppDelegate.swift in Sources */,
