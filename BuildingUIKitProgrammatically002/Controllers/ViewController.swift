@@ -21,29 +21,12 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
 
         view.backgroundColor = .yellow
         
-        view.addSubview(listChannelsTableView)
-        
-        listChannelsTableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        listChannelsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
-        listChannelsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150).isActive = true
-        listChannelsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        listChannelsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
-
+        addListChannelsTableView(view: view, listChannelsTableView: listChannelsTableView)
         listChannelsTableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
         listChannelsTableView.dataSource = self
         listChannelsTableView.delegate = self
         
-        listChannelsTableView.backgroundColor = .brown
-        
-        view.addSubview(leftUIButton)
-        leftUIButton.translatesAutoresizingMaskIntoConstraints = false
-        leftUIButton.topAnchor.constraint(equalTo: listChannelsTableView.bottomAnchor, constant: 15).isActive = true
-        leftUIButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        leftUIButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        leftUIButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -150).isActive = true
-        leftUIButton.backgroundColor = .gray
+        addLeftUIButton(view: view, leftUIButton: leftUIButton, listChannelsTableView: listChannelsTableView)
         
         view.addSubview(rightUIButton)
         rightUIButton.translatesAutoresizingMaskIntoConstraints = false
@@ -58,44 +41,46 @@ class ViewController: UIViewController {//, UITableViewDelegate, UITableViewData
         rightUIButton.addTarget(self, action: #selector(targetMyButton), for: .touchUpInside)
         
         
-        
-       // rightUIButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3).isActive = true
-        //rightUIButton.contentMode = .right
+
     }
 
-    struct ResponseData: Decodable {
-        var channels: [Channel]
-    }
-    struct Channel : Decodable {
-        var id: Int
-        var name_ru: String
-        var current: Current
-        var image: String
-    }
-    struct Current : Decodable{
-        var desc: String
+    deinit {
+        print("Память освобождена")
     }
     
     @objc func targetMyButton(){
-        print("111")
-        let fileJson = Bundle.main.path(forResource: "channels", ofType: "json") ?? "nil"
         
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: fileJson), options: .alwaysMapped) else {
-            print("error data")
-            return
-        }
-        let decoder = JSONDecoder()
-        guard let jsonData = try? decoder.decode(ResponseData.self, from: data) else {
-            print("error jsonData")
-            return
-        }
-            print(type(of: jsonData))
-            print(type(of: jsonData.channels))
-            print(jsonData.channels.count)
+//        let fileJson = Bundle.main.path(forResource: "channels", ofType: "json") ?? "nil"
+        
+        let url = URL(string: "https://www.motodolphin.com/channels.json")!
+        
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let data = data,
+                error == nil
+            else {
+                print("error data")
+                return
+            }
+            let decoder = JSONDecoder()
             
-        myArray = jsonData.channels
-        listChannelsTableView.reloadData()
-            
+            do {
+                let jsonData = try decoder.decode(ResponseData.self, from: data)
+                
+                DispatchQueue.main.async() { [weak self] in
+                    self?.myArray = jsonData.channels
+                    self?.listChannelsTableView.reloadData()
+                }
+              
+            }catch{
+                print(error)
+                return
+            }
+
+        }.resume()
+        
     }
     
     @objc func targetMyButton2() {
@@ -113,7 +98,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
         //cell.textLabel!.text = "\(myArray[indexPath.row].name_ru)"
-        cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image, textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].current.desc)
+        cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image ?? "", textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].showingNow?.desc ?? "")
         return cell
     }
     
