@@ -18,46 +18,34 @@ class TableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .tertiarySystemFill
         
-//        contentView.addSubview(viewImage)
-//        
-//        viewImage.translatesAutoresizingMaskIntoConstraints = false
-//        viewImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
-//        //viewImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
-//        viewImage.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor, constant: -5).isActive = true
-//        viewImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
-////        viewImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-////        viewImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
-//        viewImage.widthAnchor.constraint(equalToConstant: 50).isActive = true
-//        viewImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        viewImage.backgroundColor = .green
-//        viewImage.image = UIImage(named: "ErrorChannel.jpeg")
-//        viewImage.contentMode = .scaleToFill
+        contentView.addSubview(viewImage)
         
+        viewImage.translatesAutoresizingMaskIntoConstraints = false
+        viewImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        viewImage.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -5).isActive = true
+        viewImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
+        viewImage.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        viewImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        //viewImage.backgroundColor = .green
+        viewImage.image = UIImage(named: "ErrorChannel.jpeg")
+        viewImage.contentMode = .scaleToFill
         
-//        contentView.addSubview(titleLabel)
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
-////        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
-//        titleLabel.leadingAnchor.constraint(equalTo: viewImage.trailingAnchor, constant: 5).isActive = true
-//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-//        titleLabel.text = "nameCannel"
-//        titleLabel.backgroundColor = .blue
-        
-        
+        contentView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: viewImage.trailingAnchor, constant: 5).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+        titleLabel.text = "nameCannel"
         
         contentView.addSubview(descLabel)
         descLabel.translatesAutoresizingMaskIntoConstraints = false
-        descLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        descLabel.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor, constant: -10).isActive = true
-        descLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        descLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
+        descLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -5).isActive = true
+        descLabel.leadingAnchor.constraint(equalTo: viewImage.trailingAnchor, constant: 5).isActive = true
+        descLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         descLabel.text = "desc"
-        descLabel.backgroundColor = .green
-//        descLabel.sizeToFit()
-//        descLabel.lineBreakMode = .byWordWrapping //Если не влезает ставить в конце ...
+
         descLabel.numberOfLines = 0
-//        descLabel.adjustsFontSizeToFitWidth = true //Вместить весь текс в ячейку
-        
         
     }
     
@@ -67,10 +55,9 @@ class TableViewCell: UITableViewCell {
     
     public func setValueMyCell(nameviewImage: String, textTitleLabel: String, textDescLabel: String){
         //viewImage.image = UIImage(named: nameviewImage)
-//        viewImage.downloaded(from: nameviewImage)
-//        titleLabel.text = textTitleLabel
+        viewImage.downloaded(from: nameviewImage)
+        titleLabel.text = textTitleLabel
         descLabel.text = textDescLabel
-//        descLabel.text = "textDescLabel"
     }
     
     override func prepareForReuse() {
@@ -103,8 +90,6 @@ extension UIImageView {
                 let image = UIImage(data: data)
                 else { return }
             DispatchQueue.main.async() { [weak self] in
-//                self?.image = (error == nil) ? UIImage(named: "ErrorChannel.jpeg") : image
-//как проверить что data пустая
                 self?.image = image
             }
         }.resume()

@@ -11,9 +11,7 @@ class TableViewController: UITableViewController {
     
     let cellIdentifier = "MyCell"
     var myArray: [Channel] = []
-    
-    var incrHeihth = 59
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +19,6 @@ class TableViewController: UITableViewController {
         
         downloadChannels()
         
-//        tableView.rowHeight = UITableView.automaticDimension
 //        self.dataSource = self
 //        self.delegate = self
         
@@ -33,6 +30,16 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.hidesBarsOnTap = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.hidesBarsOnTap = false
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,12 +58,19 @@ class TableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
         // Configure the cell...
         cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image ?? "", textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].showingNow?.desc ?? "")
-        //print(cell.descLabel.frame.height)
-        //descLabel.numberOfLines = 1
-        //cell.textLabel?.numberOfLines = 0
-        cell.autoresizingMask = .flexibleHeight
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController")
+//        self.navigationController?.present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
     
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 ////        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return 0}
