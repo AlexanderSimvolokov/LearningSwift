@@ -19,15 +19,6 @@ class TableViewController: UITableViewController {
         
         downloadChannels()
         
-//        self.dataSource = self
-//        self.delegate = self
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,7 +48,7 @@ class TableViewController: UITableViewController {
         //let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return UITableViewCell()}
         // Configure the cell...
-        cell.setValueMyCell(nameviewImage: myArray[indexPath.row].image ?? "", textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].showingNow?.desc ?? "")
+        setValueMyCell(thisCell: cell, nameviewImage: myArray[indexPath.row].image ?? "", textTitleLabel: myArray[indexPath.row].name_ru, textDescLabel: myArray[indexPath.row].showingNow?.desc ?? "")
         return cell
     }
     
@@ -67,10 +58,6 @@ class TableViewController: UITableViewController {
 //        self.navigationController?.present(vc!, animated: true, completion: nil)
         
     }
-    
-    
-    
-    
     
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 ////        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return 0}
@@ -122,7 +109,6 @@ class TableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
     func downloadChannels() {
         
         let url = URL(string: "https://www.motodolphin.com/channels.json")!
@@ -154,6 +140,32 @@ class TableViewController: UITableViewController {
 
         }.resume()
         
+    }
+    
+    func setValueMyCell(thisCell: TableViewCell, nameviewImage: String, textTitleLabel: String, textDescLabel: String) {
+        //viewImage.image = UIImage(named: nameviewImage)
+        downloaded(thisCell: thisCell, from: nameviewImage)
+        thisCell.titleLabel.text = textTitleLabel
+        thisCell.descLabel.text = textDescLabel
+    }
+    
+    func downloaded(thisCell: TableViewCell, from url: URL) {
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() { //[weak self] in
+                thisCell.viewImage.image = image
+            }
+        }.resume()
+    }
+    func downloaded(thisCell: TableViewCell, from link: String) {
+        guard let url = URL(string: link) else { return }
+        downloaded(thisCell: thisCell ,from: url)
     }
 
 }
