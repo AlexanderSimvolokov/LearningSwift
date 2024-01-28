@@ -54,9 +54,10 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController")
-//        self.navigationController?.present(vc!, animated: true, completion: nil)
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {return}
+        let vc = DescSelectChannelViewController()
+        present(vc, animated: true)
+        downloaded(viewImage: vc.imageView, from: myArray[indexPath.row].image ?? "")
     }
     
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -144,12 +145,12 @@ class TableViewController: UITableViewController {
     
     func setValueMyCell(thisCell: TableViewCell, nameviewImage: String, textTitleLabel: String, textDescLabel: String) {
         //viewImage.image = UIImage(named: nameviewImage)
-        downloaded(thisCell: thisCell, from: nameviewImage)
+        downloaded(viewImage: thisCell.viewImage, from: nameviewImage)
         thisCell.titleLabel.text = textTitleLabel
         thisCell.descLabel.text = textDescLabel
     }
     
-    func downloaded(thisCell: TableViewCell, from url: URL) {
+    func downloaded(viewImage: UIImageView, from url: URL) {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
@@ -158,14 +159,14 @@ class TableViewController: UITableViewController {
                 let data = data, error == nil,
                 let image = UIImage(data: data)
                 else { return }
-            DispatchQueue.main.async() { //[weak self] in
-                thisCell.viewImage.image = image
+            DispatchQueue.main.async() { [weak viewImage] in
+                viewImage?.image = image
             }
         }.resume()
     }
-    func downloaded(thisCell: TableViewCell, from link: String) {
+    func downloaded(viewImage: UIImageView, from link: String) {
         guard let url = URL(string: link) else { return }
-        downloaded(thisCell: thisCell ,from: url)
+        downloaded(viewImage: viewImage ,from: url)
     }
 
 }

@@ -14,6 +14,7 @@
 		1525D65C2AE7245400CBCB94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1525D65A2AE7245400CBCB94 /* LaunchScreen.storyboard */; };
 		1536CD312B13260700E8236F /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1536CD302B13260700E8236F /* Channel.swift */; };
 		154FD8CB2B0035AE001B8EA3 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154FD8CA2B0035AE001B8EA3 /* TableViewCell.swift */; };
+		1585EB8C2B6644DA005F6EA9 /* DescSelectChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1585EB8B2B6644DA005F6EA9 /* DescSelectChannelViewController.swift */; };
 		158F76832B2A5C7F0083917D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F76822B2A5C7F0083917D /* TableViewController.swift */; };
 		159A0F142B34FCCA0099AA72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159A0F132B34FCCA0099AA72 /* ViewController.swift */; };
 		15A4703B2B2DDFB3002B9DE8 /* channels.json in Resources */ = {isa = PBXBuildFile; fileRef = 15A4703A2B2DDFB3002B9DE8 /* channels.json */; };
@@ -30,6 +31,7 @@
 		1525D65D2AE7245400CBCB94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1536CD302B13260700E8236F /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		154FD8CA2B0035AE001B8EA3 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		1585EB8B2B6644DA005F6EA9 /* DescSelectChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescSelectChannelViewController.swift; sourceTree = "<group>"; };
 		158F76822B2A5C7F0083917D /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		159A0F132B34FCCA0099AA72 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		15A4703A2B2DDFB3002B9DE8 /* channels.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = channels.json; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				158F76822B2A5C7F0083917D /* TableViewController.swift */,
+				1585EB8B2B6644DA005F6EA9 /* DescSelectChannelViewController.swift */,
 				159A0F132B34FCCA0099AA72 /* ViewController.swift */,
 			);
 			path = Controllers;
@@ -185,6 +188,7 @@
 				1525D6502AE7245300CBCB94 /* AppDelegate.swift in Sources */,
 				159A0F142B34FCCA0099AA72 /* ViewController.swift in Sources */,
 				1525D6522AE7245300CBCB94 /* SceneDelegate.swift in Sources */,
+				1585EB8C2B6644DA005F6EA9 /* DescSelectChannelViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
